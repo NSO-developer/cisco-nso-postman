@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "08fc1cbe-f8f2-42dd-b87a-224211707d1b",
 		"name": "NSO Sample API Requests",
-		"description": "using https://github.com/NSO-developer/nso-vagrant\n",
+		"description": "This only covers a sub-set of the RESTCONF Northbound API, since auto-generated swagger from the application is 200,000 lines of documentation.\n\nCreated using https://github.com/NSO-developer/nso-vagrant as a localhost NSO testing environment.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -395,7 +395,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "                   <snmp-server xmlns=\"urn:tailf-ned-cisco-ios\">\n                     <community xmlns:nc=\"urn:ietf:params:xml:ns:netconf:base:1.0\"\n                                nc:operation=\"delete\">\n                       <name>NSO-STRING</name>\n                     </community>\n"
+									"raw": ""
 								},
 								"url": {
 									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/tailf-ncs:devices/device={{sample_ios_device}}/config/tailf-ned-cisco-ios:snmp-server?dry-run=native",
@@ -488,7 +488,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "\n                       <ip>\n                         <address>\n                           <primary>\n                             <address>10.0.0.5</address>\n                             <mask>255.255.255.255</mask>\n                           </primary>\n                         </address>\n                       </ip>\n"
+									"raw": ""
 								},
 								"url": {
 									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/tailf-ncs:devices/device={{sample_ios_device}}/config/tailf-ned-cisco-ios:interface/FastEthernet=0%2F0/ip/address?",
@@ -520,7 +520,7 @@
 							"response": []
 						}
 					],
-					"description": "Any element of configuration modeled in NSO can be configured over the API. The ones given here are just samples. NSO will translate it to the correct commands and can rollback if needed. \n\nSince NSO exposes its functionality adhering to the IETF RESTCONF Standard, you can also refer to that documentation for more detail regarding the operations:\nhttps://tools.ietf.org/html/rfc8040\n\nFor example, if you PATCH a configuration, it will merge in existing configuration, but if you PUT it, it will replace everything in that hierarchy URI path with the body given. ",
+					"description": "Any element of device configuration modeled in NSO can be configured over the API. The ones given here are just samples. NSO will translate it to the correct commands and can rollback if needed. ",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -779,7 +779,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "<!-- \ndevices template Standard_DNS_Servers\nned-id cisco-ios-cli-6.42\nconfi\nip name-server name-server-list 8.8.8.8\nexit\nexit\nexit\nned-id cisco-nx-cli-5.13 config\nip name-server servers 8.8.8.8\n-->\n\n<devices xmlns=\"http://tail-f.com/ns/ncs\">\n               <template>\n                 <name>Standard_DNS_Servers</name>\n                 <ned-id>\n                   <id xmlns:cisco-nx-cli-5.13=\"http://tail-f.com/ns/ned-id/cisco-nx-cli-5.13\">cisco-nx-cli-5.13:cisco-nx-cli-5.13</id>\n                   <config>\n                     <ip xmlns=\"http://tail-f.com/ned/cisco-nx\">\n                       <name-server>\n                         <servers>8.8.8.8</servers>\n                       </name-server>\n                     </ip>\n                   </config>\n                 </ned-id>\n                 <ned-id>\n                   <id xmlns:cisco-ios-cli-6.42=\"http://tail-f.com/ns/ned-id/cisco-ios-cli-6.42\">cisco-ios-cli-6.42:cisco-ios-cli-6.42</id>\n                   <config>\n                     <ip xmlns=\"urn:ios\">\n                       <name-server>\n                         <name-server-list>\n                           <address>8.8.8.8</address>\n                         </name-server-list>\n                       </name-server>\n                     </ip>\n                   </config>\n                 </ned-id>\n               </template>\n             </devices>"
+									"raw": "\n<devices xmlns=\"http://tail-f.com/ns/ncs\">\n               <template>\n                 <name>Standard_DNS_Servers</name>\n                 <ned-id>\n                   <id xmlns:cisco-nx-cli-5.13=\"http://tail-f.com/ns/ned-id/cisco-nx-cli-5.13\">cisco-nx-cli-5.13:cisco-nx-cli-5.13</id>\n                   <config>\n                     <ip xmlns=\"http://tail-f.com/ned/cisco-nx\">\n                       <name-server>\n                         <servers>8.8.8.8</servers>\n                       </name-server>\n                     </ip>\n                   </config>\n                 </ned-id>\n                 <ned-id>\n                   <id xmlns:cisco-ios-cli-6.42=\"http://tail-f.com/ns/ned-id/cisco-ios-cli-6.42\">cisco-ios-cli-6.42:cisco-ios-cli-6.42</id>\n                   <config>\n                     <ip xmlns=\"urn:ios\">\n                       <name-server>\n                         <name-server-list>\n                           <address>8.8.8.8</address>\n                         </name-server-list>\n                       </name-server>\n                     </ip>\n                   </config>\n                 </ned-id>\n               </template>\n             </devices>"
 								},
 								"url": {
 									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/tailf-ncs:devices/",
@@ -794,7 +794,8 @@
 										"tailf-ncs:devices",
 										""
 									]
-								}
+								},
+								"description": "sample CLI to do the same:\ndevices template Standard_DNS_Servers\nned-id cisco-ios-cli-6.42\nconfi\nip name-server name-server-list 8.8.8.8\nexit\nexit\nexit\nned-id cisco-nx-cli-5.13 config\nip name-server servers 8.8.8.8"
 							},
 							"response": []
 						},
@@ -1073,7 +1074,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "<!--\n\nGroups are useful for organizing your devices in a way\nthat makes sense to you.\n\nDevices can be a member of more than one group,\nand device groups can be nested.\n\nCLI Equivalent\n\ndevices device-group campus-devices device-name [ ios0 nx0 ]\ntop\ndevices device-group backbone-devices device-name [ iosxr0 asa0 ]\ntop\ndevices device-group parent-group-all-devices device-group [ campus-devices backbone-devices ]\ncommit dry-run\ncommit dry-run outformat xml\ntop\n-->\n\n<devices xmlns=\"http://tail-f.com/ns/ncs\">\n               <device-group>\n                 <name>backbone-devices</name>\n                 <device-name>asa0</device-name>\n                 <device-name>iosxr0</device-name>\n               </device-group>\n               <device-group>\n                 <name>campus-devices</name>\n                 <device-name>ios0</device-name>\n                 <device-name>nx0</device-name>\n               </device-group>\n               <device-group>\n                 <name>parent-group-all-devices</name>\n                 <device-group>backbone-devices</device-group>\n                 <device-group>campus-devices</device-group>\n               </device-group>\n             </devices>\n"
+									"raw": "\n<devices xmlns=\"http://tail-f.com/ns/ncs\">\n               <device-group>\n                 <name>backbone-devices</name>\n                 <device-name>asa0</device-name>\n                 <device-name>iosxr0</device-name>\n               </device-group>\n               <device-group>\n                 <name>campus-devices</name>\n                 <device-name>ios0</device-name>\n                 <device-name>nx0</device-name>\n               </device-group>\n               <device-group>\n                 <name>parent-group-all-devices</name>\n                 <device-group>backbone-devices</device-group>\n                 <device-group>campus-devices</device-group>\n               </device-group>\n             </devices>\n"
 								},
 								"url": {
 									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/tailf-ncs:devices",
@@ -1087,7 +1088,8 @@
 										"data",
 										"tailf-ncs:devices"
 									]
-								}
+								},
+								"description": "Groups are useful for organizing your devices in a way\nthat makes sense to you.\n\nDevices can be a member of more than one group,\nand device groups can be nested.\n\nCLI Equivalent\n\ndevices device-group campus-devices device-name [ ios0 nx0 ]\ntop\ndevices device-group backbone-devices device-name [ iosxr0 asa0 ]\ntop\ndevices device-group parent-group-all-devices device-group [ campus-devices backbone-devices ]\ncommit dry-run\ncommit dry-run outformat xml\ntop"
 							},
 							"response": []
 						},
@@ -1300,7 +1302,7 @@
 									"raw": "<!--\n\nCLI Equivalent\n\nadmin@ncs(config)# simple-sample-snmp-server-service first_service_instance device ios0 dummy 10.0.0.0\nadmin@ncs(config-simple-sample-snmp-server-service-first_service_instance)# commit dry-run outformat native\nnative {\n    device {\n        name ios0\n        data snmp-server host 10.0.0.0 traps NSO-COMM-STRING\n    }\n}\n-->\n             <simple-sample-snmp-server-service xmlns=\"http://com/example/simplesamplesnmpserverservice\">\n               <name>first_service_instance</name>\n               <device>ios0</device>\n               <dummy>10.0.0.0</dummy>\n             </simple-sample-snmp-server-service>"
 								},
 								"url": {
-									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/simple-sample-snmp-server-service:simple-sample-snmp-server-service/?dry-run=native",
+									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/simple-sample-snmp-server-service:simple-sample-snmp-server-service/?",
 									"protocol": "http",
 									"host": [
 										"{{NSO_IP}}"
@@ -1315,11 +1317,12 @@
 									"query": [
 										{
 											"key": "dry-run",
-											"value": "native"
+											"value": "native",
+											"disabled": true
 										}
 									]
 								},
-								"description": "this will apply any configuration template based on the inputs provided. In this case it uses the \"dummy\" IP address to generate SNMP server config and then configure the device with it."
+								"description": "Creates a service and applies the corresponding template. In this case the service uses an IP address leaf input to build snmp-server config and apply to the device. \nCLI to do the same:\nadmin@ncs(config)# simple-sample-snmp-server-service first_service_instance device ios0 dummy 10.0.0.0"
 							},
 							"response": []
 						},
@@ -1391,7 +1394,148 @@
 										"simple-sample-snmp-server-service:simple-sample-snmp-server-service"
 									]
 								},
-								"description": "Note: this will only have data if service instances already exist."
+								"description": "Note: this will only have data if service instances already exist.\nShows all service instances. In this case we have just one. \nCLI version:\nadmin@ncs# show running-config simple-sample-snmp-server-service\nsimple-sample-snmp-server-service first_service_instance\n device [ ios0 ]\n dummy  10.0.0.0"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Service Info For Single Service Instance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "30f4a864-3944-47df-82c9-f282530deeac",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/yang-data+xml"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46YWRtaW4=",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+									},
+									{
+										"key": "Accept",
+										"value": "application/yang-data+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/simple-sample-snmp-server-service:simple-sample-snmp-server-service=first_service_instance",
+									"protocol": "http",
+									"host": [
+										"{{NSO_IP}}"
+									],
+									"port": "{{NSO_HTTP_PORT}}",
+									"path": [
+										"restconf",
+										"data",
+										"simple-sample-snmp-server-service:simple-sample-snmp-server-service=first_service_instance"
+									]
+								},
+								"description": "Note: this will only have data if service instances already exist.\nCLI version to do the same:\nadmin@ncs# show running-config simple-sample-snmp-server-service first_service_instance"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Device from Service",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "30f4a864-3944-47df-82c9-f282530deeac",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/yang-data+xml"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46YWRtaW4=",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+									},
+									{
+										"key": "Accept",
+										"value": "application/yang-data+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/simple-sample-snmp-server-service:simple-sample-snmp-server-service=first_service_instance",
+									"protocol": "http",
+									"host": [
+										"{{NSO_IP}}"
+									],
+									"port": "{{NSO_HTTP_PORT}}",
+									"path": [
+										"restconf",
+										"data",
+										"simple-sample-snmp-server-service:simple-sample-snmp-server-service=first_service_instance"
+									]
+								},
+								"description": "This will remove any configuration template based on the inputs stored in the service. \nCLI way of doing the same thing:\nno simple-sample-snmp-server-service first_service_instance"
 							},
 							"response": []
 						},
@@ -1466,7 +1610,29 @@
 							"response": []
 						}
 					],
-					"description": "NSO allows you to create any service, with any inputs, to enforce any config, for any devices. \n\nHere is a simple service for use on IOS devices, where the default yang input of an IP address input called \"dummy\" is used, and then a simple SNMP config is using that input to render and apply config.\n\nTo reproduce, here are the steps:\n\ncd $HOME/nso-run/packages/simple-sample-snmp-server-service/src/\nmake\ncd $HOME/nso-run/packages/simple-sample-snmp-server-service/templates/\nvim simple-sample-snmp-server-service-template.xml\n\nChange between the <config> tags to have:\n\n<config-template xmlns=\"http://tail-f.com/ns/config/1.0\"\n                 servicepoint=\"simple-sample-snmp-server-service\">\n  <devices xmlns=\"http://tail-f.com/ns/ncs\">\n    <device>\n      <!--\n          Select the devices from some data structure in the service\n          model. In this skeleton the devices are specified in a leaf-list.\n          Select all devices in that leaf-list:\n      -->\n      <name>{/device}</name>\n      <config>\n                 <snmp-server xmlns=\"urn:ios\">\n                     <host>\n\t\t\t     <ip-address>{/dummy}</ip-address>\n                       <message-type>traps</message-type>\n                       <community-string>NSO-COMM-STRING</community-string>\n                     </host>\n                   </snmp-server>\n\n      </config>\n    </device>\n  </devices>\n  \n(FYI)which is the XML equivalent of \n\tdevices device ios0 config snmp-server host 10.0.0.0 NSO-COMM-STRING\n  \nFinally, log into NSO and reload the packages:\nncs_cli -C -u admin\npackages reload\n",
+					"description": "NSO allows you to create any service, with any inputs, to enforce any config, for any devices. \n\nHere is a simple service for use on IOS devices, where the default yang input of an IP address input called \"dummy\" is used, and then a simple SNMP config is using that input to render and apply config.\n\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "30762974-c50d-42a5-b74d-85208fa0fd23",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "68133e70-547b-4ea2-9cbf-810f5f91ce9d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
@@ -1617,43 +1783,43 @@
 	],
 	"variable": [
 		{
-			"id": "8731b586-ec42-4c14-80a7-d5c84963686f",
+			"id": "602a55e1-14e9-45bf-a981-c5cd48aafd40",
 			"key": "NSO_IP",
 			"value": "127.0.0.1",
 			"type": "string"
 		},
 		{
-			"id": "12202744-43f5-4f03-9838-4f47f6559f0a",
+			"id": "c93527d6-d4ab-4227-8409-bce538ef944f",
 			"key": "NSO_HTTP_PORT",
 			"value": "8009",
 			"type": "string"
 		},
 		{
-			"id": "d798118f-4355-4f18-ae1d-45719d9ca07c",
+			"id": "c93a6279-c8ef-43b5-8f05-db47dea3fdee",
 			"key": "username",
 			"value": "admin",
 			"type": "string"
 		},
 		{
-			"id": "603682be-ede6-4792-93dc-f11815818934",
+			"id": "1c80d709-ad48-4df9-8fa7-17b7ebe0bd20",
 			"key": "password",
 			"value": "admin",
 			"type": "string"
 		},
 		{
-			"id": "dfc11dc2-33c8-43c1-b5b9-cf163bccccdf",
+			"id": "5930d74c-44d2-4122-bfc3-7b468ab7a909",
 			"key": "sample_ios_device",
 			"value": "ios0",
 			"type": "string"
 		},
 		{
-			"id": "b8b8d9be-45b1-4f3e-bb2f-431475c916a8",
+			"id": "1f6b73ef-cd6e-4b73-b782-0710a03f1a84",
 			"key": "sample_xr_device",
 			"value": "iosxr0",
 			"type": "string"
 		},
 		{
-			"id": "879b81e6-647f-4487-998a-2973b45ffbf8",
+			"id": "02e19936-3c41-499b-95cc-15a5f6bbc4ff",
 			"key": "sample_junos_device",
 			"value": "junos0",
 			"type": "string"
