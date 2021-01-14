@@ -1,5 +1,11 @@
 # Postman Collection for Cisco NSO
 
+This collection is designed to be used with the NSO DevNet Sandboxes:
+
+- Always-ON Sandbox (READ ONLY)
+- [Reservable Sandbox Prod (System Install)](https://devnetsandbox.cisco.com/RM/Diagram/Index/43964e62-a13c-4929-bde7-a2f68ad6b27c?diagramType=Topology)
+- Reservable Sandbox Dev (Local Install)
+
 This collection is used as the source to auto-generate the [swagger example API examples](https://developer.cisco.com/docs/nso/#!cisco-nso-swagger-api-docs). 
 
 It demonstrates basic interactions that commonly occur with NSO. It is not comprehensive, but meant as a learning tool for beginners. 
@@ -10,41 +16,13 @@ It demonstrates basic interactions that commonly occur with NSO. It is not compr
 
 ## Installation
 
-I am using the [NSO Reservable Sandbox](https://blogs.cisco.com/developer/nso-learning-lab-and-sandbox) system install NSO, with NSO version `5.3.0.1`. 
+I am using the [NSO Reservable Sandbox](https://blogs.cisco.com/developer/nso-learning-lab-and-sandbox) system install NSO, with NSO version `5.4.1`. 
 
-I have included two [Postman environments](https://learning.postman.com/docs/sending-requests/managing-environments/), one for the already configured Prod System Install, and one assuming you set up the local install yourself. The least effort to learn the API is using the system install, as NSO is already set up for you. 
-
-### Importing the Postman Collection
+I have included **three** [Postman environments](https://learning.postman.com/docs/sending-requests/managing-environments/), for each of the NSO Sandbox environments. 
 
 I created a Postman collection, which is an organized set of RESTCONF API calls to your NSO server. You can learn how to import the collection [here](https://learning.getpostman.com/docs/postman/collections/data_formats/#importing-postman-data). The collection is in this repository called `NSO Sample API Requests.postman_collection.json`. 
 
 
-For the dummy service example, I made two small changes to it after using the `ncs-make-package` bash command in the `nso-run/packages` directory. I added the following XML template:
-```bash
-cd /var/opt/ncs/packages
-ncs-make-package --service-skeleton template snmp-servers
-rm snmp-servers/src/yang/snmp-servers.yang
-vi snmp-servers/src/yang/snmp-servers.yang
-
-** copy and paste my file below in **
-https://github.com/jabelk/snmp-servers/blob/main/src/yang/snmp-servers.yang#L31
-
-cd snmp-servers/src/
-make
-cd ..
-cd templates/
-rm snmp-servers-template.xml
-vi snmp-servers-template.xml
-
-** add in the template (copy and paste file below), remove old file **
-
-https://github.com/jabelk/snmp-servers/blob/main/templates/snmp-servers-template.xml#L19
-
-log into NSO
-ncs_cli -C
-packages reload
-
-```
 
 ## Author(s)
 
