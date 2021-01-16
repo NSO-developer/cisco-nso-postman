@@ -1823,10 +1823,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"svi_verify_example:svi_verify_example\": [\n        {\n            \"name\": \"second-instance\",\n            \"device-list\": [\n                \"dist-sw01\",\n                \"dist-sw02\",\n                \"edge-firewall01\"\n            ],\n            \"switches\": [\n                {\n                    \"id\": \"first-sw\",\n                    \"switch-device\": \"dist-sw01\"\n                },\n                {\n                    \"id\": \"second-sw\",\n                    \"switch-device\": \"dist-sw02\"\n                }\n            ],\n            \"firewalls\": [\n                {\n                    \"id\": \"first-fw\",\n                    \"firewall-device\": \"edge-firewall01\"\n                }\n            ],\n            \"vlan-id\": 1503,\n            \"vlan-name\": \"NEW-SVI-DEMO\"\n        }\n    ]\n}"
+									"raw": "{\n    \"svi_verify_example:svi_verify_example\": [\n        {\n            \"name\": \"first-instance\",\n            \"switches\": [\n                {\n                    \"id\": \"first-sw\",\n                    \"switch-device\": \"dist-sw01\"\n                },\n                {\n                    \"id\": \"second-sw\",\n                    \"switch-device\": \"dist-sw02\"\n                }\n            ],\n            \"firewalls\": [\n                {\n                    \"id\": \"first-fw\",\n                    \"firewall-device\": \"edge-firewall01\"\n                }\n            ],\n            \"vlan-id\": 1503,\n            \"vlan-name\": \"NEW-SVI-DEMO\"\n        }\n    ]\n}"
 								},
 								"url": {
-									"raw": "{{PROTOCOL}}://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/snmp-servers:snmp-servers=first-instance",
+									"raw": "{{PROTOCOL}}://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/svi_verify_example:svi_verify_example=first-instance",
 									"protocol": "{{PROTOCOL}}",
 									"host": [
 										"{{NSO_IP}}"
@@ -1835,7 +1835,7 @@
 									"path": [
 										"restconf",
 										"data",
-										"snmp-servers:snmp-servers=first-instance"
+										"svi_verify_example:svi_verify_example=first-instance"
 									]
 								},
 								"description": "Updating the VLAN Name and Number"
@@ -1894,7 +1894,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{PROTOCOL}}://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/svi_verify_example:svi_verify_example=second-instance",
+									"raw": "{{PROTOCOL}}://{{NSO_IP}}:{{NSO_HTTP_PORT}}/restconf/data/svi_verify_example:svi_verify_example=first-instance",
 									"protocol": "{{PROTOCOL}}",
 									"host": [
 										"{{NSO_IP}}"
@@ -1903,7 +1903,7 @@
 									"path": [
 										"restconf",
 										"data",
-										"svi_verify_example:svi_verify_example=second-instance"
+										"svi_verify_example:svi_verify_example=first-instance"
 									]
 								},
 								"description": "This will remove any configuration template based on the inputs stored in the service. \nCLI way of doing the same thing:\nno simple-sample-snmp-server-service first_service_instance"
